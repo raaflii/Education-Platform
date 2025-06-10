@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('author')->default('Admin');
             $table->boolean('is_published')->default(false);
             $table->timestamp('published_at')->nullable();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('news_category_id')->constrained('news_categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

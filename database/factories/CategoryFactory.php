@@ -4,14 +4,14 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Category;
+use App\Models\NewsCategory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
  */
 class CategoryFactory extends Factory
 {
-    protected $model = Category::class;
+    protected $model = NewsCategory::class;
 
     public function definition(): array
     {

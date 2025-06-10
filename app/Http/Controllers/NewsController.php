@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
-use App\Models\Category;
+use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,7 +11,7 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::with('category')
+        $news = News::with('news_category')
             ->published()
             ->latest()
             ->paginate(10);
@@ -25,7 +25,7 @@ class NewsController extends Controller
             abort(404);
         }
 
-        $relatedNews = News::where('category_id', $news->category_id)
+        $relatedNews = News::where('news_category_id', $news->news_category_id)
             ->where('id', '!=', $news->id)
             ->published()
             ->latest()
@@ -35,9 +35,9 @@ class NewsController extends Controller
         return view('news.show', compact('news', 'relatedNews'));
     }
 
-    public function category(Category $category)
+    public function category(NewsCategory $category)
     {
-        $news = News::where('category_id', $category->id)
+        $news = News::where('news_category_id', $category->id)
             ->published()
             ->latest()
             ->paginate(10);

@@ -7,19 +7,20 @@ use App\Models\News;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\NewsCategory;
 
 class AdminNewsController extends Controller
 {
     public function index()
     {
-        $news = News::with('category')->latest()->paginate(10);
-        return view('admin.news-index', compact('news'));
+        $news = News::with('news_category')->latest()->paginate(10);
+        return view('admin.news.index', compact('news'));
     }
 
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.news-create', compact('categories'));
+        $news_categories = NewsCategory::all();
+        return view('admin.news.create', compact('news_categories'));
     }
 
     public function store(Request $request)
@@ -27,7 +28,7 @@ class AdminNewsController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
-            'category_id' => 'required|exists:categories,id',
+            'news_category_id' => 'required|exists:news_categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'excerpt' => 'nullable|string|max:500',
             'author' => 'required|string|max:255',
@@ -49,13 +50,13 @@ class AdminNewsController extends Controller
 
     public function show(News $news)
     {
-        return view('admin.news-show', compact('news'));
+        return view('admin.news.show', compact('news'));
     }
 
     public function edit(News $news)
     {
-        $categories = Category::all();
-        return view('admin.news-edit', compact('news', 'categories'));
+        $news_categories = NewsCategory::all();
+        return view('admin.news.edit', compact('news', 'news_categories'));
     }
 
     public function update(Request $request, News $news)
@@ -63,7 +64,7 @@ class AdminNewsController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
-            'category_id' => 'required|exists:categories,id',
+            'news_category_id' => 'required|exists:news_categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'excerpt' => 'nullable|string|max:500',
             'author' => 'required|string|max:255',

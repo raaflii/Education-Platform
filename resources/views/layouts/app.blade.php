@@ -15,8 +15,55 @@
                     <a href="/" class="text-xl font-bold text-blue-600">EduPlatform</a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="{{ route('news.index') }}" class="text-gray-700 hover:text-blue-600">Berita</a>
-                    <a href="{{ route('admin.dashboard') }}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Admin</a>
+                    @auth
+                        <!-- User dropdown menu -->
+                        <div class="relative group">
+                            <button class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 focus:outline-none">
+                                <img src="{{ Auth::user()->getAvatarUrl() }}" alt="Avatar" class="w-8 h-8 rounded-full">
+                                <span>{{ Auth::user()->name }}</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            
+                            <!-- Dropdown menu -->
+                            <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div class="px-4 py-2 text-sm text-gray-500 border-b">
+                                    {{ Auth::user()->getRoleDisplayName() }}
+                                </div>
+                                
+                                @if(Auth::user()->isAdmin())
+                                    <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        Dashboard Admin
+                                    </a>
+                                @elseif(Auth::user()->isTeacher())
+                                    <a href="{{ route('teacher.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        Dashboard Guru
+                                    </a>
+                                @else
+                                    <a href="{{ route('student.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        Dashboard Siswa
+                                    </a>
+                                @endif
+                                
+                                <a href="{{ route('password.change') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Ubah Password
+                                </a>
+                                
+                                <div class="border-t">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Logout
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600">Login</a>
+                        <a href="{{ route('register') }}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200">Daftar</a>
+                    @endauth
                 </div>
             </div>
         </div>

@@ -1,12 +1,26 @@
 @extends('layouts.app')
 
-@section('title', 'Berita Terbaru')
+@section('title', 'Kategori: ' . $category->name)
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-8">
     <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Berita Terbaru</h1>
-        <p class="text-gray-600 mt-2">Dapatkan informasi terkini seputar dunia pendidikan online</p>
+        <nav class="text-sm text-gray-500 mb-4">
+            <a href="{{ route('news.index') }}" class="hover:text-blue-600">Berita</a>
+            <span class="mx-2">/</span>
+            <span class="text-gray-900">{{ $category->name }}</span>
+        </nav>
+        
+        <h1 class="text-3xl font-bold text-gray-900">Kategori: {{ $category->name }}</h1>
+        @if($category->description)
+            <p class="text-gray-600 mt-2">{{ $category->description }}</p>
+        @else
+            <p class="text-gray-600 mt-2">Berita terkini dalam kategori {{ $category->name }}</p>
+        @endif
+        
+        <div class="mt-4 text-sm text-gray-500">
+            {{ $news->total() }} artikel ditemukan
+        </div>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -44,14 +58,21 @@
             </article>
         @empty
             <div class="col-span-full text-center py-12">
-                <p class="text-gray-500 text-lg">Belum ada berita tersedia.</p>
+                <div class="text-gray-400 text-6xl mb-4">📰</div>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">Belum Ada Berita</h3>
+                <p class="text-gray-500 text-lg mb-4">Belum ada berita dalam kategori "{{ $category->name }}".</p>
+                <a href="{{ route('news.index') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    ← Kembali ke Semua Berita
+                </a>
             </div>
         @endforelse
     </div>
 
     <!-- Pagination -->
-    <div class="mt-8">
-        {{ $news->links() }}
-    </div>
+    @if($news->hasPages())
+        <div class="mt-8">
+            {{ $news->links() }}
+        </div>
+    @endif
 </div>
 @endsection

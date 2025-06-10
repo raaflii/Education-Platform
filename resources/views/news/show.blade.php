@@ -9,7 +9,7 @@
         <ol class="flex items-center space-x-2 text-sm text-gray-500">
             <li><a href="{{ route('news.index') }}" class="hover:text-blue-600">Berita</a></li>
             <li>/</li>
-            <li><a href="{{ route('news.category', $news->category) }}" class="hover:text-blue-600">{{ $news->category->name }}</a></li>
+            <li><a href="{{ route('news.category', $news->news_category) }}" class="hover:text-blue-600">{{ $news->news_category->name }}</a></li>
             <li>/</li>
             <li class="text-gray-900">{{ Str::limit($news->title, 50) }}</li>
         </ol>
@@ -25,7 +25,7 @@
             <!-- Meta Info -->
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center space-x-4">
-                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">{{ $news->category->name }}</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">{{ $news->news_category->name }}</span>
                     <span class="text-gray-500 text-sm">{{ $news->formatted_date }}</span>
                 </div>
                 <span class="text-gray-500 text-sm">By {{ $news->author }}</span>

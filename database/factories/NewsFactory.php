@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\News;
-use App\Models\Category;
+use App\Models\NewsCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -25,7 +25,7 @@ class NewsFactory extends Factory
             'author' => $this->faker->name(),
             'is_published' => $isPublished,
             'published_at' => $isPublished ? $this->faker->dateTimeBetween('-1 month', 'now') : null,
-            'category_id' => Category::factory(),
+            'category_id' => NewsCategory::factory(),
         ];
     }
 

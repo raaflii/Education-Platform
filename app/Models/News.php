@@ -20,7 +20,7 @@ class News extends Model
         'author',
         'is_published',
         'published_at',
-        'category_id'
+        'news_category_id'
     ];
 
     protected $casts = [
@@ -53,9 +53,9 @@ class News extends Model
         });
     }
 
-    public function category()
+    public function news_category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(NewsCategory::class);
     }
 
     public function scopePublished($query)
