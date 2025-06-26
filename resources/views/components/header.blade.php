@@ -44,14 +44,15 @@
                         </svg>
                     </div>
                 </button>
-                <button
-                    class="border-none text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 px-4 py-2 text-xs rounded-lg transition-colors cursor-pointer">
+                <a href="{{ route('login') }}"
+                class="border border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 px-4 py-2 text-xs border-none rounded-lg transition-colors">
                     Login
-                </button>
-                <button
-                    class="bg-primary hover:bg-primary-hover text-white px-4 py-2 text-xs rounded-lg transition-colors cursor-pointer">
+                </a>
+
+                <a href="{{ route('register') }}"
+                class="bg-primary hover:bg-primary-hover text-white px-4 py-2 text-xs rounded-lg transition-colors">
                     Sign Up
-                </button>
+                </a>
             </div>
         </div>
     </div>
